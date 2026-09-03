@@ -1,20 +1,32 @@
+import { Equip } from "./equip.ts";
+
 export class Personagem {
-    
-    constructor(
-        public nome: string = "", 
-        public vida: number = 100,
-        public skill: number = 10,
-        public money: number = 0,
-        public energia: number = 100,
-        
-    ) {}
+    //atributos
+    nome: string;
+    vida: number;
+    skill: number;
+    money: number;
+    energia: number;
+    equip: Equip;
+    constructor(equip: Equip) {
+        this.nome = "";
+        this.vida = 100;
+        this.skill = 10;
+        this.money = 0;
+        this.energia = 100;
+        this.equip = equip;
+
+      }
+      treinarSkill():void{
+          this.skill +=Math.floor(5+Math.random()*5)
+          this.energia -=Math.floor(5+Math.random()*5)
+        if(this.energia<=0){
+            throw new Error("Wasted")
+        }
+    }
 }
 
 
 
-const equip: Equip = new Equip("Guitarra")
 
-const pA: Personagem = new Personagem ("Arthur", 100, 10, 0, 100, );
-
-const pB: Personagem = new Personagem ("Bernardo", 100, 10, 0, 100, );
 

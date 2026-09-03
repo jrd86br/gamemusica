@@ -1,3 +1,9 @@
 export class Equip {
-    constructor(public nome: string = "") {}
+    nome: string;
+    tipoSkill: string;
+
+    constructor(nome: string, tipoSkill: string) {
+        this.nome = nome;
+        this.tipoSkill = tipoSkill;
+    }
 }
