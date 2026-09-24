@@ -69,11 +69,52 @@ switch (option) {
 
 }
 option = 0;
+
 while (option !== 9) {
-    console.log("1. Trenar");
-    option = +teclado('Escolha seu Personagem: ');
+    try {
+        console.log('\n-----------------------------');
+        console.log(`> ${personagemSelecionado!.nome} | Vida: ${personagemSelecionado!.vida} | Skill: ${personagemSelecionado!.skill} | Energia: ${personagemSelecionado!.energia} | Money: ${personagemSelecionado!.money}`);
+        console.log('-----------------------------');
+        console.log("1. Ensaiar");
+        console.log("2. Descansar")
+        console.log("3. Tocar show");
+        
+        console.log("9. Sair");
+
+        option = +teclado('Escolha uma opção: ');
+        switch (option) {
+            case 1:
+                if (personagemSelecionado!.energia > 0) {
+                    personagemSelecionado!.treinarSkill();
+                    console.log(`\n💪 ${personagemSelecionado!.nome} treinou! Skill: ${personagemSelecionado!.skill} | Energia: ${personagemSelecionado!.energia}`);
+                } else {
+                    console.log(`\n⚠️ ${personagemSelecionado!.nome} está sem energia para treinar!`);
+                }
+                break;
+                case 2:
+                    if (personagemSelecionado!.energia < 100) {
+                        personagemSelecionado!.descansar();
+                        console.log(`\n😴 ${personagemSelecionado!.nome} descansou! Energia: ${personagemSelecionado!.energia}`);
+                    } else {
+                        console.log(`\n${personagemSelecionado!.nome} já está com energia máxima, não precisa descansar.`);
+                    }
+                    break;
+                case 3:
+                    
+
+            case 9:
+                console.log(`\n Saindo Até mais ${personagemSelecionado!.nome}`)
+                break;
+            default:
+                console.log("[erro] Opção inválida")
+                break;
+
+        }
+    } catch (e) {
+    console.log(`\n⚠️ ${(e as Error).message} — ${personagemSelecionado!.nome} ficou sem energia para treinar!`);
+    }
+    }
 
 
-}
 
 

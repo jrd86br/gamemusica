@@ -18,12 +18,22 @@ export class Personagem {
 
       }
       treinarSkill():void{
-          this.skill +=Math.floor(5+Math.random()*5)
           this.energia -=Math.floor(5+Math.random()*5)
-        if(this.energia<=0){
-            throw new Error("Wasted")
-        }
+          if(this.energia<=0){
+              this.energia = 0
+                            
+            }
+            this.skill +=Math.floor(5+Math.random()*5)
     }
+        descansar(): void {
+            this.energia += Math.floor(10 + Math.random() * 10);
+            if (this.energia > 100) {
+             this.energia = 100;
+            }
+    }
+        tocarShow(): void {
+            if (this.energia >)
+        }
 }
 
 
