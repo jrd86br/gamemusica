@@ -7,13 +7,15 @@ export class Personagem {
     private _money: number;
     private _energia: number;
     private _equip: Equip;
+    private _popularidade: number;
 
-    constructor(equip: Equip) {
+    constructor(equip: Equip, popularidade: number) {
         this._nome = "";
         this._skill = 10;
         this._money = 0;
         this._energia = 100;
         this._equip = equip;
+        this._popularidade = popularidade;
       }
 
     //getters
@@ -37,7 +39,11 @@ export class Personagem {
     public get equip() : Equip {
         return this._equip;
     }
+    public get popularidade() : number {
+        return this._popularidade;
+    }
 
+    
     //setters
     set nome(valor: string) {
         if (valor.trim() ===""){

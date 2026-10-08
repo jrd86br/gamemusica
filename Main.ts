@@ -1,7 +1,7 @@
 import { Equip } from "./equip.ts";
 import prompt from "prompt-sync";
 import { Personagem } from "./Personagem.ts";
-import { Show } from "./show.ts";
+import { Show } from "./Show.ts";
 
 
 const teclado = prompt();
@@ -14,13 +14,13 @@ const equip2: Equip = new Equip("Baixo", "tipo 2");
 let personagemSelecionado: Personagem | undefined;
 
 
-const pA: Personagem = new Personagem(equip);
+const pA: Personagem = new Personagem(equip, 5);
 pA.nome = "Arthur";
 
 
 
 
-const pB: Personagem = new Personagem(equip2);
+const pB: Personagem = new Personagem(equip2,3);
 pB.nome = "Bernardo";
 
 
@@ -29,7 +29,7 @@ pB.nome = "Bernardo";
 let option = 0;
 
 if (personagemSelecionado) {
-    console.log(`> Selecionado: ${personagemSelecionado.nome} (HP: ${personagemSelecionado.energia}, Skill: ${personagemSelecionado.skill})`);
+    console.log(`> Selecionado: ${personagemSelecionado.nome} (HP: ${personagemSelecionado.energia}, Skill: ${personagemSelecionado.skill}, Popularidade: ${personagemSelecionado.popularidade})`);
 } else {
     console.log('> Selecionado: Nenhum');
 }
@@ -66,7 +66,7 @@ option = 0;
 while (option !== 9) {
     try {
         console.log('\n-----------------------------');
-        console.log(`> ${personagemSelecionado!.nome}  | Skill: ${personagemSelecionado!.skill} | Energia: ${personagemSelecionado!.energia} | Money: ${personagemSelecionado!.money}`);
+        console.log(`> ${personagemSelecionado!.nome}  | Skill: ${personagemSelecionado!.skill} | Energia: ${personagemSelecionado!.energia} | Money: ${personagemSelecionado!.money} | Popularidade: ${personagemSelecionado!.popularidade}`);
         console.log('-----------------------------');
         console.log("1. Ensaiar");
         console.log("2. Descansar")
@@ -96,11 +96,11 @@ while (option !== 9) {
                     const show = new Show("Bar do Zé");
 
                 if (!show.podeTocar(personagemSelecionado!)) {
-                    console.log("\n⚠️ ${personagemSelecionado!._nome} está cansado demais para tocar!");
+                    console.log(`\n⚠️ ${personagemSelecionado!.nome} está cansado demais para tocar!`);
                     break;
                 }
 
-                console.log("\n🎤 ${personagemSelecionado!._nome} sobe ao palco do ${show.local}...");
+                console.log(`\n🎤 ${personagemSelecionado!.nome} sobe ao palco do ${show.local}...`);
                 teclado("💡 As luzes se apagam. Pressione enter...");
 
                 const ganho = show.tocar(personagemSelecionado!);
