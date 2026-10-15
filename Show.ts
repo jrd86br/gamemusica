@@ -1,4 +1,5 @@
 import { Personagem } from "./Personagem.ts";
+import { Mania } from "./Mania.ts";
 
 export class Show {
     local: string;
@@ -15,15 +16,16 @@ export class Show {
         return p.energia >= this.custoEnergia;
     }
 
-    tocar(p: Personagem): number {
+    tocar(p: Personagem, teclado: (msg: string) => string): number {
         p.energia = Math.max(0, p.energia - this.custoEnergia);
 
-        // nota do show: skill + um pouco de sorte (0 a 19)
-        const nota = p.skill + Math.floor(Math.random() * 20);
+        // o resultado vem do desempenho no minigame
+        const mania = new Mania(teclado);
+        const precisao = mania.jogar(p.skill);
 
         let ganho = 0;
-        if (nota >= 60) ganho = this.premioBase;
-        else if (nota >= 30) ganho = Math.round(this.premioBase * 0.4);
+        if (precisao >= 0.8) ganho = this.premioBase;
+        else if (precisao >= 0.5) ganho = Math.round(this.premioBase * 0.4);
 
         p.money += ganho;
         return ganho;

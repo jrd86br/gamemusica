@@ -103,7 +103,7 @@ while (option !== 9) {
                 console.log(`\n🎤 ${personagemSelecionado!.nome} sobe ao palco do ${show.local}...`);
                 teclado("💡 As luzes se apagam. Pressione enter...");
 
-                const ganho = show.tocar(personagemSelecionado!);
+                const ganho = show.tocar(personagemSelecionado!, teclado);
 
                 if (ganho >= 100) {
                     console.log("🎉 A plateia canta junto! Show incrível!");
