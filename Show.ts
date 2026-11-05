@@ -5,11 +5,37 @@ export class Show {
     local: string;
     private premioBase: number;
     private custoEnergia: number;
+    private popularidadeMinima: number;
+    private skillMinima: number;
 
-    constructor(local: string, premioBase: number = 100) {
+    constructor(
+        local: string,
+        premioBase: number,
+        popularidadeMinima: number,
+        skillMinima: number,
+        custoEnergia: number
+    ) {
         this.local = local;
         this.premioBase = premioBase;
-        this.custoEnergia = 20;
+        this.popularidadeMinima = popularidadeMinima;
+        this.skillMinima = skillMinima;
+        this.custoEnergia = custoEnergia;
+    }
+
+    get premio(): number {
+        return this.premioBase;
+    }
+
+    get popMinima(): number {
+        return this.popularidadeMinima;
+    }
+
+    get skillExigida(): number {
+        return this.skillMinima;
+    }
+
+    desbloqueado(p: Personagem): boolean {
+        return p.popularidade >= this.popularidadeMinima && p.skill >= this.skillMinima;
     }
 
     podeTocar(p: Personagem): boolean {
@@ -17,9 +43,8 @@ export class Show {
     }
 
     tocar(p: Personagem, teclado: (msg: string) => string): number {
-        p.energia = Math.max(0, p.energia - this.custoEnergia);
+        p.gastarEnergia(this.custoEnergia);
 
-        // o resultado vem do desempenho no minigame
         const mania = new Mania(teclado);
         const precisao = mania.jogar(p.skill);
 
@@ -27,7 +52,7 @@ export class Show {
         if (precisao >= 0.8) ganho = this.premioBase;
         else if (precisao >= 0.5) ganho = Math.round(this.premioBase * 0.4);
 
-        p.money += ganho;
+        p.receberMoney(ganho);
         return ganho;
     }
 }
