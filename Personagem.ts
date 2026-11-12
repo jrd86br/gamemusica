@@ -58,30 +58,13 @@ export class Personagem {
     }
 
     
-    set money(valor: number) {
-        if (valor < 0) {
-            throw new Error("Money não pode ser negativo");
-            
-            
-        }
-        this._money = valor;
-    }
 
-    set energia(valor: number) {
-        if (valor < 0) {
-            throw new Error("Energia não pode ser negativa");
-            
-            
-        }
-        this._energia = valor;
-    }
-    
 
     
 
 //esses são os métodos que definem o comportamento do objeto, ou seja, as ações que ele pode realizar. No caso da classe Personagem, os métodos são: treinarSkill(), descansar(), gastarEnergia() e receberMoney().
     
-      treinarSkill():void{
+      treinarSkill(): void{
           this._energia -=Math.floor(5+Math.random()*5)
           if(this._energia<=0){
               this._energia = 0
@@ -108,6 +91,15 @@ export class Personagem {
         }
         this._money += valor;
     }
+
+    ganharPopularidade(valor: number): void {
+    if (valor < 0) {
+        throw new Error("A popularidade ganha não pode ser negativa.");
+    }
+    this._popularidade += valor;
+}
+
+
 }
 
 

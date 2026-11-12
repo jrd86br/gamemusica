@@ -34,25 +34,30 @@ export class Show {
         return this.skillMinima;
     }
 
-    desbloqueado(p: Personagem): boolean {
-        return p.popularidade >= this.popularidadeMinima && p.skill >= this.skillMinima;
+    desbloqueado(personagem: Personagem): boolean {
+        return personagem.popularidade >= this.popularidadeMinima && personagem.skill >= this.skillMinima;
     }
 
-    podeTocar(p: Personagem): boolean {
-        return p.energia >= this.custoEnergia;
+    podeTocar(personagem: Personagem): boolean {
+        return personagem.energia >= this.custoEnergia;
     }
 
-    tocar(p: Personagem, teclado: (msg: string) => string): number {
-        p.gastarEnergia(this.custoEnergia);
+    tocar(personagem: Personagem, teclado: (msg: string) => string): number {
+        personagem.gastarEnergia(this.custoEnergia);
 
         const mania = new Mania(teclado);
-        const precisao = mania.jogar(p.skill);
+        const precisao = mania.jogar(personagem.skill);
 
         let ganho = 0;
-        if (precisao >= 0.8) ganho = this.premioBase;
-        else if (precisao >= 0.5) ganho = Math.round(this.premioBase * 0.4);
+        if (precisao >= 0.8) {
+            ganho = this.premioBase;
+            personagem.ganharPopularidade(3);
+        } else if (precisao >= 0.5) {
+            ganho = Math.round(this.premioBase * 0.4);
+            personagem.ganharPopularidade(1);
+        }
 
-        p.receberMoney(ganho);
+        personagem.receberMoney(ganho);
         return ganho;
     }
 }
