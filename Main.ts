@@ -2,6 +2,7 @@ import { Equip } from "./equip.ts";
 import prompt from "prompt-sync";
 import { Personagem } from "./Personagem.ts";
 import { Show } from "./Show.ts";
+import { Bar } from "./Bar.ts";
 
 //começa o jogo
 const teclado = prompt();
@@ -28,9 +29,7 @@ const pB: Personagem = new Personagem(equip2,5);
 pB.nome = "Bernardo";
 
 const shows: Show[] = [
-    new Show("Bar do Zé", 100, 0, 0, 20),
-    new Show("Pub Rock Night", 250, 10, 30, 30),
-    new Show("Casa de Shows Central", 600, 25, 80, 40),
+    new Bar(),
 ];
 
 //esse let option serve para armazenar a opção escolhida pelo jogador no menu principal. Inicialmente, ele é definido como 0, mas será atualizado com base na entrada do jogador durante o loop do menu.
@@ -136,14 +135,14 @@ while (option !== 9) {
                     console.log(`\n🎤 ${personagemSelecionado!.nome} vai tocar no show em ${show.local}!`);
                     teclado("Pressione enter para começar a tocar...");
                     const ganho = show.tocar(personagemSelecionado!, teclado);
-                    if (ganho >= 100) {
+                    if (ganho >= show.premio) {
                         console.log(`\n🎉 Show Incrivel! ${personagemSelecionado!.nome} ganhou ${ganho} de money!`);
                     } else if (ganho > 0) {
                         console.log(`\n👍 Foi um bom show! ${personagemSelecionado!.nome} ganhou ${ganho} de money!`);
                     } else {
                         console.log(`\n😢 Que coisa horrível! ${personagemSelecionado!.nome} não ganhou money nesse show.`);
                     }
-                    console.log(`\n💰 Dinheiro total: ${personagemSelecionado!.money} Energia: ${personagemSelecionado!.energia}`);
+                    console.log(`\n💰 Money total: ${personagemSelecionado!.money} | Energia: ${personagemSelecionado!.energia}`);
                     break;
                 }
             

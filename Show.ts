@@ -1,12 +1,12 @@
 import { Personagem } from "./Personagem.ts";
 import { Mania } from "./Mania.ts";
 
-export class Show {
+export abstract class Show {
     local: string;
-    private premioBase: number;
-    private custoEnergia: number;
-    private popularidadeMinima: number;
-    private skillMinima: number;
+    protected premioBase: number;
+    protected custoEnergia: number;
+    protected popularidadeMinima: number;
+    protected skillMinima: number;
 
     constructor(
         local: string,
@@ -48,16 +48,14 @@ export class Show {
         const mania = new Mania(teclado);
         const precisao = mania.jogar(personagem.skill);
 
-        let ganho = 0;
-        if (precisao >= 0.8) {
-            ganho = this.premioBase;
-            personagem.ganharPopularidade(3);
-        } else if (precisao >= 0.5) {
-            ganho = Math.round(this.premioBase * 0.4);
-            personagem.ganharPopularidade(1);
-        }
+        const ganho = this.calcularGanho(precisao);
+        personagem.ganharPopularidade(this.calcularPopularidade(precisao));
 
         personagem.receberMoney(ganho);
         return ganho;
     }
+
+    protected abstract calcularGanho(precisao: number): number;
+    protected abstract calcularPopularidade(precisao: number): number;
+    
 }
