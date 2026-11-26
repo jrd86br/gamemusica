@@ -3,9 +3,12 @@ import prompt from "prompt-sync";
 import { Personagem } from "./Personagem.ts";
 import { Show } from "./Show.ts";
 import { Bar } from "./Bar.ts";
+<<<<<<< HEAD
 import { JJ } from "./JJ.ts";
 import { Opiniao } from "./Opiniao.ts";
 import { Arena } from "./Arena.ts";
+=======
+>>>>>>> 8d71c74be73a7b36cb8f7fdadf9851efd2a396e7
 
 //começa o jogo
 const teclado = prompt();
@@ -114,7 +117,11 @@ while (option !== 9) {
                     console.log("Onde será o próximo show?");
                     shows.forEach((show, index) => {
                        if (show.desbloqueado(personagemSelecionado!)) {
+<<<<<<< HEAD
                             console.log(`${index + 1}. ${show.local} | Prêmio: ${show.premio}`);
+=======
+                            console.log(`${index + 1}. ${show.local} (Prêmio: ${show.premio}`);
+>>>>>>> 8d71c74be73a7b36cb8f7fdadf9851efd2a396e7
                         } else {
                             console.log(`${index + 1}. ${show.local} (Bloqueado) Exigências: Popularidade mínima: ${show.popMinima}, Skill mínima: ${show.skillExigida}`);
                         }
