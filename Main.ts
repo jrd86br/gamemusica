@@ -3,6 +3,9 @@ import prompt from "prompt-sync";
 import { Personagem } from "./Personagem.ts";
 import { Show } from "./Show.ts";
 import { Bar } from "./Bar.ts";
+import { JJ } from "./JJ.ts";
+import { Opiniao } from "./Opiniao.ts";
+import { Arena } from "./Arena.ts";
 
 //começa o jogo
 const teclado = prompt();
@@ -30,6 +33,9 @@ pB.nome = "Bernardo";
 
 const shows: Show[] = [
     new Bar(),
+    new JJ(),
+    new Opiniao(),
+    new Arena()
 ];
 
 //esse let option serve para armazenar a opção escolhida pelo jogador no menu principal. Inicialmente, ele é definido como 0, mas será atualizado com base na entrada do jogador durante o loop do menu.
@@ -108,7 +114,7 @@ while (option !== 9) {
                     console.log("Onde será o próximo show?");
                     shows.forEach((show, index) => {
                        if (show.desbloqueado(personagemSelecionado!)) {
-                            console.log(`${index + 1}. ${show.local} (Prêmio: ${show.premio}`);
+                            console.log(`${index + 1}. ${show.local} | Prêmio: ${show.premio}`);
                         } else {
                             console.log(`${index + 1}. ${show.local} (Bloqueado) Exigências: Popularidade mínima: ${show.popMinima}, Skill mínima: ${show.skillExigida}`);
                         }
