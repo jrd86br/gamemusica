@@ -16,4 +16,7 @@ export class Opiniao extends Show {
         if (precisao >= 0.5) return 2;
         return 0;
     }
+    descricao(): string {
+    return "Palco tradicional da cena. Exige muita skill e um show médio paga só 20%.";
+}
 }

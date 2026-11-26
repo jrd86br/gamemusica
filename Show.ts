@@ -57,5 +57,6 @@ export abstract class Show {
 
     protected abstract calcularGanho(precisao: number): number;
     protected abstract calcularPopularidade(precisao: number): number;
+    abstract descricao(): string;
     
 }

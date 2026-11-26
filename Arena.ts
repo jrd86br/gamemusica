@@ -7,13 +7,16 @@ export class Arena extends Show {
 
     protected calcularGanho(precisao: number): number {
         if (precisao >= 0.8) return this.premioBase;
-        if (precisao >= 0.5) return Math.round(this.premioBase * 0.1);
+        
         return 0;
     }   
 
     protected calcularPopularidade(precisao: number): number {
         if (precisao >= 0.8) return 5;
-        if (precisao >= 0.5) return 2;
+        
         return 0;
     }
+    descricao(): string {
+    return "O palco dos grandes. Tudo ou nada: só paga se o show for excelente.";
+}
 }

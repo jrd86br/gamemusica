@@ -118,6 +118,7 @@ while (option !== 9) {
                         } else {
                             console.log(`${index + 1}. ${show.local} (Bloqueado) Exigências: Popularidade mínima: ${show.popMinima}, Skill mínima: ${show.skillExigida}`);
                         }
+                        console.log(`   ${show.descricao()}`);
                     });
                     console.log("0. Voltar");
                     const escolha=+teclado("Escolha o show: ");

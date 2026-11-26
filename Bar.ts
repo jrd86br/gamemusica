@@ -16,4 +16,8 @@ export class Bar extends Show {
         if (precisao >= 0.5) return 1;
         return 0;
     }
+    
+    descricao(): string {
+    return "Palco simples e plateia animada. Acertos parciais ainda rendem dinheiro.";
+}
 }

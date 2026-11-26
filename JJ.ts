@@ -16,4 +16,8 @@ export class JJ extends Show {
         if (precisao >= 0.5) return 2;
         return 0;
     }
+    
+    descricao(): string {
+    return "Casa de rock com plateia exigente. Um show médio ainda paga 30% do prêmio.";
+}
 }
