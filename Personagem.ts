@@ -1,4 +1,5 @@
 import { Equip } from "./equip.ts";
+import { Inventario } from "./inventario.ts";
 
 
 //Classe é o molde do objeto, e o objeto é a instância da classe. A classe define as propriedades e métodos que os objetos terão, enquanto os objetos são instâncias concretas dessas classes com valores específicos para suas propriedades.
@@ -11,6 +12,7 @@ export class Personagem {
     private _energia: number;
     private _equip: Equip;
     private _popularidade: number;
+    private _inventario: Inventario;
 //constructor é uma função especial executada ao instanciar o objeto
 //entre os () deve ficar os parâmetros que serão passados para o objeto, e entre as {} deve ficar o código que será executado ao instanciar o objeto.
     constructor(equip: Equip, popularidade: number) {
@@ -21,6 +23,8 @@ export class Personagem {
         this._energia = 100;
         this._equip = equip;
         this._popularidade = popularidade;
+        this._inventario = new Inventario();
+        this._inventario.adicionarItem(equip);
       }
 
     //getters são métodos que permitem acessar os valores dos atributos do objeto. Eles são usados para encapsular a lógica de acesso e garantir que os valores retornados sejam válidos.
@@ -47,6 +51,10 @@ export class Personagem {
     public get popularidade() : number {
         return this._popularidade;
     }
+    public get Inventario() : Inventario {
+        return this._inventario;
+    }
+
 
     
     //setters são métodos que permitem alterar os valores dos atributos do objeto. Eles são usados para encapsular a lógica de validação e garantir que os valores atribuídos aos atributos sejam válidos.
@@ -58,51 +66,76 @@ export class Personagem {
     }
 
     
+    set money(valor: number) {
+        if (valor < 0) {
+            throw new Error("Money não pode ser negativo");
+            
+            
+        }
+        this._money = valor;
+    }
 
+    set energia(valor: number) {
+        if (valor < 0) {
+            throw new Error("Energia não pode ser negativa");
+            
+            
+        }
+        this._energia = valor;
+    }
+    
+    public equipar(novoEquip: Equip): void {
+        if (!this._inventario.temItem(novoEquip)) {
+            throw new Error("Você não possui esse equipamento.");
+        }
+        this._equip = novoEquip;
+        console.log(`✨ ${this._nome} agora equipou: ${novoEquip.nome}!`);
+    }
+    
 
     
 
 //esses são os métodos que definem o comportamento do objeto, ou seja, as ações que ele pode realizar. No caso da classe Personagem, os métodos são: treinarSkill(), descansar(), gastarEnergia() e receberMoney().
     
-      treinarSkill(): void{
-          this._energia -=Math.floor(5+Math.random()*5)
-          if(this._energia<=0){
-              this._energia = 0
-                            
+      treinarSkill(): void {
+        const gastoEnergia = Math.floor((5 + Math.random() * 5) * this._equip.multEnergia);
+        const ganhoSkill = Math.floor((5 + Math.random() * 5) * this._equip.multSkill);
+
+        this._energia -= gastoEnergia;
+            if (this._energia <= 0) {
+                this._energia = 0;
             }
-            this._skill +=Math.floor(5+Math.random()*5)
+        this._skill += ganhoSkill;
     }
         descansar(): void {
             this._energia += Math.floor(10 + Math.random() * 10);
             if (this._energia > 100) {
-             this._energia = 100;
+            this._energia = 100;
             }
     }
-    gastarEnergia(valor: number): void {
-        this._energia -= valor;
-        if (this._energia < 0) {
+        gastarEnergia(valor: number): void {
+            this._energia -= valor;
+            if (this._energia < 0) {
             this._energia = 0;
-        }
+            }
     }
 
-    receberMoney(valor: number): void {
-        if (valor < 0) {
-            throw new Error("O valor recebido não pode ser negativo.");
-        }
-        this._money += valor;
+        receberMoney(valor: number): void {
+            if (valor < 0) {
+                throw new Error("O valor recebido não pode ser negativo.");
+            }
+            this._money += valor;
     }
 
-    ganharPopularidade(valor: number): void {
-    if (valor < 0) {
-        throw new Error("A popularidade ganha não pode ser negativa.");
+        gastarMoney(valor: number): void {
+            if (valor > this._money) {
+                throw new Error("Dinheiro insuficiente.");
+            }
+            this._money -= valor;
     }
-    this._popularidade += valor;
+
+        ganharPopularidade(valor: number): void {
+            this._popularidade = Math.max(0, this._popularidade + valor);
+    }   
+
 }
-
-
-}
-
-
-
-
-
